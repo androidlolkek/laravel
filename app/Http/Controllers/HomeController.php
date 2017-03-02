@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use Auth;
-use App\Product;
+use App\Tovars;
 
 
 class HomeController extends Controller
@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index()
 	
     {
-		$all = Product::where ('user_id',Auth::user()->id)->orderBy('id','DESC')->paginate(10);
+		$all = Tovars::where ('user_id',Auth::user()->id)->orderBy('id','DESC')->paginate(10);
 				
 		
         return view('home')->with('all',$all);
@@ -39,23 +39,23 @@ class HomeController extends Controller
 		$r['picture']= ' ';
 		$r['url']= ' ';
 		$r['user_id']= Auth::user()->id;
-		Product::create($r->all());
+		Tovars::create($r->all());
 		return redirect('home');
 		
 	}
 	public function getDelete($id=0){
-		Product::where('id', $id)->delete();
+		Tovars::where('id', $id)->delete();
 		return redirect('/home');
 	}
 	public function getEdit($id=0){
-		$product = Product::find($id);
+		$product = Tovars::find($id);
 		return view('edit')->with('product', $product);	
 	}
 	public function postEdit(ProductRequest $r, $id=0){
 		//dd($_POST);
-		$prod = Product::find($id);
+		$prod = Tovars::find($id);
 		if($prod->user_id == Auth::user()->id){
-			Product::where('id',$id)->update($r->except('_token'));
+			Tovars::where('id',$id)->update($r->except('_token'));
 		}
 		return redirect('/home');
 		

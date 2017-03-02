@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'BaseController@getIndex');
+
 
 Auth::routes();
 
@@ -22,3 +21,5 @@ Route::post('/home','HomeController@postindex');
 Route::get('delete/{id}', 'HomeController@getDelete');
 Route::get('edit/{id}', 'HomeController@getEdit');
 Route::post('edit/{id}', 'HomeController@postEdit');
+Route::get('catalog/{id}', 'ProductController@getIndex');
+Route::get('product/{id}', 'ProductController@getOne');

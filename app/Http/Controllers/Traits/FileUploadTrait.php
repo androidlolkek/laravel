@@ -16,6 +16,8 @@ trait FileUploadTrait
         if (!file_exists(public_path('uploads'))) {
             mkdir(public_path('uploads'), 0777);
             mkdir(public_path('uploads/thumb'), 0777);
+            mkdir(public_path('uploads/mid'), 0777);
+
         }
         foreach ($request->all() as $key => $value) {
             if ($request->hasFile($key)) {
@@ -25,6 +27,8 @@ trait FileUploadTrait
                     $file     = $request->file($key);
                     $image    = Image::make($file);
                     Image::make($file)->resize(50, 50)->save(public_path('uploads/thumb') . '/' . $filename);
+                    $file2     = $request->file($key);
+                    Image::make($file2)->resize(200,200)->save(public_path('uploads/mid') . '/' . $filename);
                     $width  = $image->width();
                     $height = $image->height();
                     if ($width > $request->{$key . '_w'} && $height > $request->{$key . '_h'}) {
