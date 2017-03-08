@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Tovars;
 use App\Categories;
 
+
 class ProductController extends Controller
 {
     public function getIndex($id = 0)

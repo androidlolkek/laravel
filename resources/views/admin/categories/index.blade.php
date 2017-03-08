@@ -2,40 +2,39 @@
 
 @section('content')
 
-<p>{!! link_to_route(config('quickadmin.route').'.categories.create', trans('quickadmin::templates.templates-view_index-add_new') , null, array('class' => 'btn btn-success')) !!}</p>
+    <p>{!! link_to_route(config('quickadmin.route').'.categories.create', trans('quickadmin::templates.templates-view_index-add_new') , null, array('class' => 'btn btn-success')) !!}</p>
 
-@if ($categories->count())
-    <div class="portlet box green">
-        <div class="portlet-title">
-            <div class="caption">{{ trans('quickadmin::templates.templates-view_index-list') }}</div>
-        </div>
-        <div class="portlet-body">
-            <table class="table table-striped table-hover table-responsive datatable" id="datatable">
-                <thead>
+    @if ($categories->count())
+        <div class="portlet box green">
+            <div class="portlet-title">
+                <div class="caption">{{ trans('quickadmin::templates.templates-view_index-list') }}</div>
+            </div>
+            <div class="portlet-body">
+                <table class="table table-striped table-hover table-responsive datatable" id="datatable">
+                    <thead>
                     <tr>
                         <th>
                             {!! Form::checkbox('delete_all',1,false,['class' => 'mass']) !!}
                         </th>
                         <th>name</th>
-<th>showhide</th>
-<th>picture</th>
-<th>parent_id</th>
+                        <th>showhide</th>
+                        <th>picture</th>
+                        <th>parent_id</th>
 
                         <th>&nbsp;</th>
                     </tr>
-                </thead>
+                    </thead>
 
-                <tbody>
+                    <tbody>
                     @foreach ($categories as $row)
                         <tr>
                             <td>
                                 {!! Form::checkbox('del-'.$row->id,1,false,['class' => 'single','data-id'=> $row->id]) !!}
                             </td>
                             <td>{{ $row->name }}</td>
-<td>{{ $row->showhide }}</td>
-<td>@if($row->picture != '')<img src="{{ asset('uploads/thumb') . '/'.  $row->picture }}">@endif</td>
-<td>{{ $row->parent_id }}</td>
-
+                            <td>{{ $row->showhide }}</td>
+                            <td>@if($row->picture != '')<img src="{{ asset('uploads/thumb') . '/'.  $row->picture }}">@endif</td>
+                            <td>{{ $row->parent_id }}</td>
                             <td>
                                 {!! link_to_route(config('quickadmin.route').'.categories.edit', trans('quickadmin::templates.templates-view_index-edit'), array($row->id), array('class' => 'btn btn-xs btn-info')) !!}
                                 {!! Form::open(array('style' => 'display: inline-block;', 'method' => 'DELETE', 'onsubmit' => "return confirm('".trans("quickadmin::templates.templates-view_index-are_you_sure")."');",  'route' => array(config('quickadmin.route').'.categories.destroy', $row->id))) !!}
@@ -44,23 +43,23 @@
                             </td>
                         </tr>
                     @endforeach
-                </tbody>
-            </table>
-            <div class="row">
-                <div class="col-xs-12">
-                    <button class="btn btn-danger" id="delete">
-                        {{ trans('quickadmin::templates.templates-view_index-delete_checked') }}
-                    </button>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="btn btn-danger" id="delete">
+                            {{ trans('quickadmin::templates.templates-view_index-delete_checked') }}
+                        </button>
+                    </div>
                 </div>
-            </div>
-            {!! Form::open(['route' => config('quickadmin.route').'.categories.massDelete', 'method' => 'post', 'id' => 'massDelete']) !!}
+                {!! Form::open(['route' => config('quickadmin.route').'.categories.massDelete', 'method' => 'post', 'id' => 'massDelete']) !!}
                 <input type="hidden" id="send" name="toDelete">
-            {!! Form::close() !!}
+                {!! Form::close() !!}
+            </div>
         </div>
-	</div>
-@else
-    {{ trans('quickadmin::templates.templates-view_index-no_entries_found') }}
-@endif
+    @else
+        {{ trans('quickadmin::templates.templates-view_index-no_entries_found') }}
+    @endif
 
 @endsection
 

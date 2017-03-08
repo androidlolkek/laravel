@@ -23,12 +23,39 @@
 'csrfToken' => csrf_token(),
 ]) !!};
     </script>
+    <script src="/js/jquery-1.js"></script>
+    <script src="/js/jquery_cookies.js"></script>
 </head>
 <body>
 <div id="app">
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
+                <div id="basket">
+                    <table>
+                        <tbody>
+                        <tr style="display: none;" class="hPb">
+                            <td>Выбрано:</td>
+                            <td><span id="totalGoods">0</span> товаров</td>
+                        </tr>
+                        <tr style="display: none;" class="hPb">
+                            <td>Сумма: &asymp; </td>
+                            <td><span id="totalPrice">0</span> руб.</td>
+                        </tr>
+                        <tr style="display: none;" class="hPb">
+                            <td>Куки:</td>
+                            <td><span id="gugu">0</span> </td>
+                        </tr>
+                        <tr style="display: table-row;" class="hPe">
+                            <td colspan="2">Корзина пуста</td>
+                        </tr>
+                        <tr>
+                            <td><a style="display: none;" id="clearBasket" href="#">Очистить</a></td>
+                            <td><a style="display: none;" id="checkOut" href="{{asset('order')}}">Оформить</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <!— Collapsed Hamburger —>
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -99,6 +126,7 @@ document.getElementById('logout-form').submit();">
 </div>
 
 <!— Scripts —>
-<script src="/js/app.js"></script>
+{{--<script src="/js/app.js"></script>--}}
+<script src="/js/cart.js"></script>
 </body>
 </html>
